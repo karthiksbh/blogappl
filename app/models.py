@@ -56,4 +56,23 @@ class User(AbstractUser):
     profile_pic = models.FileField(null=True, blank=True, upload_to='images')
 
     def __str__(self):
+        return str(self.username)
+
+
+CATEGORIES = (('Mental Health', 'Mental Health'),
+              ('Heart Disease', 'Heart Disease'),
+              ('COVID19', 'COVID19'),
+              ('Immunization', 'Immunization'))
+
+
+class Blog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    blog_image = models.FileField(null=True, blank=True, upload_to='images')
+    blog_category = models.CharField(choices=CATEGORIES, max_length=100)
+    summary = models.TextField(max_length=255)
+    content = models.TextField(max_length=255)
+    is_draft = models.BooleanField('Is Draft?', default=True)
+
+    def __str__(self):
         return str(self.id)

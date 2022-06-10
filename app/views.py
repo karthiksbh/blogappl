@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegister, LoginForm
-from . models import User
+from .forms import UserRegister, LoginForm, BlogCreation
+from . models import User, Blog
 from django.db.models import Q
 from django.contrib.auth import authenticate
 from django.contrib import messages
@@ -26,7 +26,7 @@ def register_doc(request):
                 request, 'You(Doctor) have registered successfully. Login In Now')
             return redirect('login')
         else:
-            msg = 'Form is not valid'
+            msg = 'Errors while validating the form. Try Again!'
             return render(request, 'register.html', {'form': form, 'msg': msg})
     else:
         form = UserRegister()
@@ -65,16 +65,74 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None and user.is_doctor is True:
-                details = User.objects.filter(username=username)
-                print(details)
-                return render(request, 'doctor.html', {'details': details})
+                data = Blog.objects.filter(is_draft=False)
+                print(data)
+                return render(request, 'blogs.html', {'data': data})
             elif user is not None and user.is_doctor is False:
-                details = User.objects.filter(username=username)
-                print(details)
-                return render(request, 'patient.html', {'details': details})
+                data = Blog.objects.filter(is_draft=False)
+                print(data)
+                return render(request, 'blogsall.html', {'data': data})
             else:
                 msg = 'You have entered incorrect username or password'
                 return render(request, 'login.html', {'form': form, 'msg': msg})
         else:
-            msg = 'Error has ocuured. Try Again'
+            msg = 'Error has occured. Try Again'
     return render(request, 'login.html', {'form': form, 'msg': msg})
+
+
+def blogs(request):
+    data = Blog.objects.filter(is_draft=False, user=request.user)
+    print(data)
+    return render(request, 'blogs.html', {'data': data})
+
+
+def drafts(request):
+    data = Blog.objects.filter(is_draft=True, user=request.user)
+    print(data)
+    return render(request, 'drafts.html', {'data': data})
+
+
+def myblogs(request):
+    data = Blog.objects.filter(user=request.user, is_draft=False)
+    return render(request, 'myblogs.html', {'data': data})
+
+
+def createBlog(request):
+    if request.method == 'POST':
+        form = BlogCreation(request.POST, request.FILES)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            user = request.user
+            blog_category = form.cleaned_data['blog_category']
+            summary = form.cleaned_data['summary']
+            content = form.cleaned_data['content']
+            is_draft = form.cleaned_data['is_draft']
+            blog = Blog(
+                user=user, title=title, blog_category=blog_category, summary=summary, content=content, is_draft=is_draft)
+            blog.save()
+            c = Blog.objects.get(Q(user=request.user) & Q(title=title))
+            print(c)
+            c.user = user
+            if(len(request.FILES) != 0):
+                c.blog_image = request.FILES['image']
+            c.save()
+            if(is_draft == False):
+                messages.success(
+                    request, 'Your Blog has been Successfully Created')
+                return redirect('myblogs')
+            else:
+                messages.success(
+                    request, 'Your Draft has been Successfully Created')
+                return redirect('drafts')
+        else:
+            msg = 'Try Again!'
+            return render(request, 'createblog.html', {'form': form, 'msg': msg})
+    else:
+        form = BlogCreation()
+        return render(request, 'createblog.html', {'form': form})
+
+
+def blogsall(request):
+    data = Blog.objects.filter(is_draft=False)
+    print(data)
+    return render(request, 'blogs.html', {'data': data})
