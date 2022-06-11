@@ -73,7 +73,7 @@ def login(request):
             elif user is not None and user.is_doctor is False:
                 data = Blog.objects.filter(is_draft=False)
                 auth_login(request, user)
-                return render(request, 'blogsall.html', {'data': data})
+                return render(request, 'blogs.html', {'data': data})
             else:
                 msg = 'You have entered incorrect username or password'
                 return render(request, 'login.html', {'form': form, 'msg': msg})
@@ -83,19 +83,16 @@ def login(request):
 
 
 def blogs(request):
-    print("output" + str(request.user))
     data = Blog.objects.filter(is_draft=False)
     return render(request, 'blogs.html', {'data': data})
 
 
 def drafts(request):
-    print("output" + str(request.user))
     data = Blog.objects.filter(is_draft=True, user=request.user)
     return render(request, 'drafts.html', {'data': data})
 
 
 def myblogs(request):
-    print("output" + str(request.user))
     data = Blog.objects.filter(user=request.user, is_draft=False)
     return render(request, 'myblogs.html', {'data': data})
 
