@@ -14,6 +14,26 @@
   font-family: Asap, sans-serif;
 }
 
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Add a light grey background on mouse-over */
+.btn:hover {
+  background-color: #ddd;
+}
+
+.container-newone{
+  align-content: center;
+  text-align: center;
+  padding-right: 0px;
+  padding-left: 120px;
+}
+
 
 *,
 *::before,
@@ -131,3 +151,4 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+

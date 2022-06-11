@@ -13,5 +13,9 @@ urlpatterns = [
     path('drafts/', views.drafts, name='drafts'),
     path('myblog/', views.myblogs, name='myblogs'),
     path('create/', views.createBlog, name='create'),
-    path('logout/', auth_views.LogoutView.as_view(next_page='homepage'), name='logout')
+    path('mhealth/', views.mhealth, name='mhealth'),
+    path('heartdis/', views.heartdis, name='heartdis'),
+    path('covid19/', views.covid19, name='covid19'),
+    path('immun/', views.immun, name='immun'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout')
 ]

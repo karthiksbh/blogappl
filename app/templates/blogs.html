@@ -19,22 +19,6 @@
     
     <h1 class="heading mt-3" style="color:#24272E;font-weight:550;">Blogs of All Doctors</h1>
 
-    <div class="container mt-4 mb-0" style="width:450px;">
-      {% if messages %}
-            {% for message in messages %}
-              <p {% if message.tags %} class="alert alert-{{message.tags}} mb-4" {% endif %} align="center"> {{message}} </p>
-            {% endfor %}
-          {% endif %}
-      
-          {% if msg %}
-          <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
-            <i class="bi-exclamation-octagon-fill"></i>
-            <strong class="mx-2">Error!</strong>{{msg}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
-          {% endif %}
-    </div>
-
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div> <a href="{% url 'blogs' %}" class="nav_link active"> <i class='bx bx-home-alt-2'></i> <span class="nav_names">All Blogs</span> </a>
@@ -43,9 +27,23 @@
                   <a href="{% url 'drafts' %}" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_names">Drafts</span> </a>
                   <a href="{% url 'create' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Create New Blog</span> </a>  
                 </div>
-            </div> <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Logout</span> </a>
+            </div> <a href="{% url 'logout' %}" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Logout</span> </a>
         </nav>
     </div>
+
+    <div class="container mx-0">
+    <div class="container-new" style="vertical-align:middle">
+      <div id="myBtnContainer">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn" href="{% url 'blogs' %}">Blog Category: </a>
+        <a class="btn" href="{% url 'mhealth' %}">Mental Health</a>
+        <a class="btn" href="{% url 'heartdis' %}">Heart Disease</a>
+        <a class="btn" href="{% url 'covid19' %}">COVID19</a>
+        <a class="btn" href="{% url 'immun' %}">Immunization</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
       {% for i in data %}
