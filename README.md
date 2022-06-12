@@ -28,6 +28,7 @@ Used MYSQL database as given in the task.
 
 # Libraries that need to be installed: 
 django: pip install django
+
 mysqlclient: pip install mysqlclient
 
 # To start the server and view the website
