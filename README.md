@@ -45,6 +45,8 @@ Step 2: Go to the Browser and enter http://127.0.0.1:8000/
 
 2) Blogs Dashboard for the Patient with categories(After logging in a patient): 
 
+This displays the blogs of all the doctors that are present and not just the logged in doctor.
+
 <img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/173212246-db512deb-e58b-4c39-8d6d-ecf583785ac6.png">
 
 
