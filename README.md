@@ -16,7 +16,7 @@ Types of Users: Doctors who can upload the blogs or create drafts and Patients w
 # Tech Stack Used:
 Django Framework - Python (Backend)
 
-HTML, CSS and Bootstrap (Frontend)
+HTML, CSS, Bootstrap and Javascript(Frontend)
 
 MySQL (Database)
 
