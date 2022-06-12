@@ -27,9 +27,3 @@ django: pip install django
 Step 1: Run python manage.py runserver
 
 Step 2: Go to the Browser and enter http://127.0.0.1:8000/
-
-# Screenshots of the application:
-
-1) Home Page: 
-
-<img width="750" alt="image" src="https://user-images.githubusercontent.com/83284855/172517373-ca37a776-b66c-4782-9e87-5dcde5e2f118.png">
